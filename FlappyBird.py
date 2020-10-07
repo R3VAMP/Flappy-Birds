@@ -88,7 +88,7 @@ pygame.display.set_icon(icon)
 screen = pygame.display.set_mode((288, 512))
 clock = pygame.time.Clock()
 game_font = pygame.font.Font('font/04B_19.ttf', 30)
-
+  
 # ___________________________GAME VARIABLES____________________________
 gravity = 0.40
 bird_movement = 0
