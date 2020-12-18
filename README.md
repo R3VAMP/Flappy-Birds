@@ -7,8 +7,9 @@ Made the Flappy Bird Game in Python using pygame.
 - Pygame
 
 ## How to install package
-Open the terminal and type pip to check whether pip is installed or not
-Once installed type the below command in terminal
+
+- Open the terminal and type pip to check whether pip is installed or not
+- Once installed type the below command in terminal
     - pip install pygame
 
 ## References
