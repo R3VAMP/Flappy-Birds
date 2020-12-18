@@ -22,7 +22,8 @@ def create_pipe():
 def move_pipe(pipes):
     for pipe in pipes:
         pipe.centerx -= 5
-    return pipes
+    pipe_visibility = [pipe for pipe in pipes if pipe.right >= 15]
+    return pipe_visibility
 
 
 def draw_pipes(pipes):
@@ -33,15 +34,18 @@ def draw_pipes(pipes):
             flip_pipe = pygame.transform.flip(pipe_surface, False, True)
             screen.blit(flip_pipe, pipe)
 
-
+# Reference (check_collision) : https://www.youtube.com/watch?v=1_H7InPMjaY&t=316s
 def check_collision(pipes):
+    global is_score_possible
     for pipe in pipes:
         if bird_rect.colliderect(pipe):
             death_sound.play()
+            is_score_possible = True
             return False
 
+
     if bird_rect.top <= -100 or bird_rect.bottom >= 450:
-        death_sound.play()
+        is_score_possible = True
         return False
 
     return True
@@ -82,21 +86,35 @@ def update_score(score, high_score):
     return high_score
 
 
-pygame.mixer.pre_init(frequency=44100, size=16, channels=1, buffer=512)
+def score_check():
+    global score,is_score_possible
+    
+    if pipe_list:
+        for pipe in pipe_list:
+            if 55 < pipe.centerx < 65 and is_score_possible:
+                score += 1
+                score_sound.play()
+                is_score_possible = False
+            if pipe.centerx < 0:
+                is_score_possible = True
+
+
 pygame.init()
 pygame.display.set_caption('Flappy Birds')
 icon = pygame.image.load('imgs/bird-house.png')
 pygame.display.set_icon(icon)
 screen = pygame.display.set_mode((288, 512))
 clock = pygame.time.Clock()
-game_font = pygame.font.Font('font/04B_19.ttf', 30)
+game_font = pygame.font.Font('font/GameFont.ttf', 30)
   
 # ___________________________GAME VARIABLES____________________________
+
 gravity = 0.40
 bird_movement = 0
 game_active = True
 score = 0
 high_score = 0
+is_score_possible = True
 
 # BACKGROUND SURFACE
 back_surface = pygame.image.load('imgs/background.png').convert()
@@ -106,10 +124,11 @@ floor_surface = pygame.image.load('imgs/base.png').convert()
 floor_x_pos = 0
 
 # BIRD
-bird_downflap = pygame.image.load('imgs/bird-downflap.png').convert_alpha()
-bird_midflap = pygame.image.load('imgs/bird-midflap.png').convert_alpha()
-bird_upflap = pygame.image.load('imgs/bird-upflap.png').convert_alpha()
-bird_frames = [bird_downflap, bird_midflap, bird_upflap]
+bird_down = pygame.image.load('imgs/bird-downflap.png').convert_alpha()
+bird_mid = pygame.image.load('imgs/bird-midflap.png').convert_alpha()
+bird_up = pygame.image.load('imgs/bird-upflap.png').convert_alpha()
+
+bird_frames = [bird_down, bird_mid, bird_up]
 bird_index = 0
 bird_surface = bird_frames[bird_index]
 bird_rect = bird_surface.get_rect(center=(60, 220))
@@ -128,9 +147,12 @@ game_over_surface = pygame.image.load('imgs/message.png').convert_alpha()
 game_over_rect = game_over_surface.get_rect(center=(144, 240))
 
 # SOUNDS
+# Reference : https://www.sounds-resource.com/mobile/flappybird/sound/5309/
+
 flap_sound = pygame.mixer.Sound('sound/sfx_wing.wav')
 death_sound = pygame.mixer.Sound('sound/sfx_hit.wav')
 score_sound = pygame.mixer.Sound('sound/sfx_point.wav')
+
 # EVENT LOGIC
 while True:
     for event in pygame.event.get():
@@ -164,6 +186,7 @@ while True:
     screen.blit(back_surface, (0, 0))
 
     if game_active:
+        
         # Bird Animations
         bird_movement += gravity
         rotated_bird = rotate_bird(bird_surface)
@@ -175,8 +198,10 @@ while True:
         pipe_list = move_pipe(pipe_list)
         draw_pipes(pipe_list)
 
-        score += 0.011
+        #Score Updates
+        score_check()
         display_score('main_game')
+        
     else:
         screen.blit(game_over_surface, game_over_rect)
         high_score = update_score(score, high_score)
