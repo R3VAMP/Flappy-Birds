@@ -3,8 +3,8 @@
 Made the Flappy Bird Game in Python using pygame.
 
 ## Requirements
-    - Python 3
-    - Pygame
+- Python 3
+- Pygame
 
 ## How to install package
 Open the terminal and type pip to check whether pip is installed or not
