@@ -116,8 +116,6 @@ bird_rect = bird_surface.get_rect(center=(60, 220))
 
 BIRDFLAP = pygame.USEREVENT + 1
 pygame.time.set_timer(BIRDFLAP, 200)
-""" bird_surface = pygame.image.load('imgs/bird-midflap.png').convert_alpha()
-bird_rect = bird_surface.get_rect(center=(60, 220)) """
 
 # PIPE
 pipe_surface = pygame.image.load('imgs/pipe.png')
