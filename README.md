@@ -1,8 +1,8 @@
 # Flappy-Birds
 
-Made the Flappy Bird Game in Python.
-Have Fun :)
-
+- Made the Flappy Bird Game in Python. 
+- Added an executable file to run the game without python installed on your system
+- Have Fun :)
 ## Requirements
 - Python 3
 - Pygame
