@@ -34,7 +34,7 @@ def draw_pipes(pipes):
             flip_pipe = pygame.transform.flip(pipe_surface, False, True)
             screen.blit(flip_pipe, pipe)
 
-# Reference (check_collision) : https://www.youtube.com/watch?v=1_H7InPMjaY&t=316s
+
 def check_collision(pipes):
     global is_score_possible
     for pipe in pipes:
