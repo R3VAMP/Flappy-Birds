@@ -18,5 +18,4 @@ If you just want to play the game, just double click on the main.exe File and en
 
 ## References
 - https://www.pygame.org/docs/
-- https://www.youtube.com/watch?v=1_H7InPMjaY&t=316s
 - https://www.sounds-resource.com/mobile/flappybird/sound/5309/ 
