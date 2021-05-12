@@ -1,5 +1,3 @@
-# Referfence : https://www.pygame.org/docs/
-
 import pygame
 import sys
 import random
@@ -145,8 +143,7 @@ pipe_height = [200, 250, 280, 330]
 game_over_surface = pygame.image.load("imgs/message.png").convert_alpha()
 game_over_rect = game_over_surface.get_rect(center=(144, 240))
 
-# SOUNDS
-# Reference : https://www.sounds-resource.com/mobile/flappybird/sound/5309/
+# --------------------SOUNDS-------------------------------
 
 flap_sound = pygame.mixer.Sound("sound/sfx_wing.wav")
 death_sound = pygame.mixer.Sound("sound/sfx_hit.wav")
